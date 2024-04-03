@@ -1,0 +1,20 @@
+#!/bin/sh
+
+outFile=$(mktemp)
+
+
+langs="$(tesseract --list-langs | grep -v 'available') Install"
+
+lang=$(echo $langs | perl -pe 's/ /\n/g' | fzf --reverse --prompt "Choose Language: ")
+
+if [ "$lang" == "Install" ]
+then
+    lang=$(yay -Ss tesseract | grep "tesseract-data" | grep -v "\-git" | perl -pe 's/extra\/tesseract-data-(\w+).*/$1/' | fzf --prompt "Install Language: " --reverse)
+    yay -S "tesseract-data-$lang"
+fi
+
+# echo "Lang: $lang" >> "$outFile"
+# echo "Text:" >> "$outFile"
+tesseract -l "$lang" "$1" - | grep -vP "(^image/png$)" | grep -v "Estimating resolution as" &>> "$outFile"
+
+nvim "$outFile"

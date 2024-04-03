@@ -1,0 +1,8 @@
+#!/bin/sh
+
+options=(
+Base64:base64
+Base32:base64
+CyberChef:$BROWSER
+)
+echo $options | fzf

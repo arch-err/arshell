@@ -1,0 +1,16 @@
+#!/bin/sh
+
+outFile=$(mktemp)
+
+echo "Mediainfo:" >> "$outFile"
+echo "------------------------------------------------------------" >> "$outFile"
+mediainfo "$1" &>> "$outFile"
+
+echo "" >> "$outFile"
+echo "" >> "$outFile"
+
+echo "Exif data:" >> "$outFile"
+echo "------------------------------------------------------------" >> "$outFile"
+exiftool "$1" &>> "$outFile"
+
+nvim "$outFile"

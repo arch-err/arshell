@@ -1,0 +1,9 @@
+#!/bin/sh
+
+outFile=$(mktemp)
+
+
+
+zbarimg "$1" &>> "$outFile"
+
+nvim "$outFile"

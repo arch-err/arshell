@@ -1,0 +1,51 @@
+ls = lsd
+l = lsd
+grep = grep --color=auto
+cat = bat
+c = bat
+diff = diff --color=auto
+ip = ip -color=auto
+ping = prettyping
+mkdir = mkdir -p
+cp = cp -v
+v = nvim
+sv = sudo nvim
+fzf = fzf --reverse
+
+# lf = lfub
+# steam = steam &>/dev/null
+# stigd = while true; do stig; done
+# rm = trash-put
+clip = clipboard
+
+gs = git status
+gaa = git add --all
+gau = git add -u
+gco = git commit -m
+gpu = git push
+gpl = git pull
+gcl = git clone
+gt = git add -u && git commit -m "GitOps Debugging/Testing - $(date +%H:%M:%S)" && git push
+
+cf = config
+es = editscript
+ns = newscript
+np = newproject
+# cl = clip-lastcmd
+# nm = neomutt
+# hp = headphones
+# o = open
+pkg = $EDITOR $HOME/Projects/Git/Github/pkgz/pkgz.sh
+z = zellij
+
+# draw = firefox --kiosk --new-window "https://excalidraw.com/"
+# nd = nextcloud-deck
+tmp = nvim $(mktemp)
+ntfy = notify-send
+kitty = kitty --title "Terminal"
+pc = pwncat-cs
+wpscan = wordpresscan
+# file = magika
+
+uninstall = yay -Rns
+unins = yay -Rns

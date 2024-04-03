@@ -1,0 +1,7 @@
+#!/bin/sh
+
+outFile=$(mktemp)
+
+strings "$1" &>> "$outFile"
+
+nvim "$outFile"

@@ -1,0 +1,7 @@
+#!/bin/sh
+
+outFile=$(mktemp)
+
+flarestrings "$1" | rank_strings &>> "$outFile"
+
+nvim "$outFile"

@@ -1,0 +1,8 @@
+#!/bin/sh
+# echo "$@" > ~/yazi.log
+file "$@" -b --mime-type
+# magika $@ --mime-type | perl -pe 's/.*?: //; s/\e\[[0-9;]*m(?:\e\[K)?//g' | sort
+f=$(magika $@ --mime-type | perl -pe 's/.*?: //; s/\e\[[0-9;]*m(?:\e\[K)?//g' | sort)
+# magika $@ --mime-type | perl -pe 's/.*?: //; s/\e\[[0-9;]*m(?:\e\[K)?//g' | sort > magika.log
+# file $@ -b --mime-type > file.log
+notify-send "$f"
