@@ -150,10 +150,41 @@ ssh () {
 
 k () {
     case $1 in
-        ns) kubectl config set-context --current --namespace="$(kubectl get namespaces | grep -v "NAME" | awk '{print $1}' | fzf --reverse --prompt "Select namespace: ")";;
+        ns) kubectl config set-context --current --namespace="$(kubectl get namespaces | grep -v "NAME" | awk '{print $1}' | fzf --height=10 --reverse --prompt "Select namespace: ")";;
         af) shift 1 && kubectl apply -f $@;;
         sh) kubectl exec --stdin --tty $( kubectl get pods | grep Running | fzf --reverse --prompt "Choose pod: ") -- /bin/sh;;
+        cx) kubectl config get-contexts -o name | fzf --height=10 --reverse --prompt "Context: "| xargs kubectl config use-context;;
+        g) shift 1 && kubectl get $@;;
+        d) shift 1 && kubectl describe $@;;
+        del) shift 1 && kubectl delete $@;;
+        e) shift 1 && kubectl edit $@;;
         *) kubectl $@
+    esac
+}
+
+oc () {
+    case $1 in
+        ns) kubectl config set-context --current --namespace="$(kubectl get namespaces | grep -v "NAME" | awk '{print $1}' | fzf --height=10 --reverse --prompt "Select namespace: ")";;
+        af) shift 1 && kubectl apply -f $@;;
+        sh) kubectl exec --stdin --tty $( kubectl get pods | grep Running | fzf --reverse --prompt "Choose pod: ") -- /bin/sh;;
+        cx) kubectl config get-contexts -o name | fzf --height=10 --reverse --prompt "Context: "| xargs kubectl config use-context;;
+        g) shift 1 && kubectl get $@;;
+        d) shift 1 && kubectl describe $@;;
+        del) shift 1 && kubectl delete $@;;
+        e) shift 1 && kubectl edit $@;;
+        *) kubectl $@
+    esac
+}
+
+h () {
+    case $1 in
+        ua) helm uninstall $(helm ls -q);;
+        r) shift 1 && helm uninstall $@ && helm install $@;;
+        i) shift 1 && helm install $@;;
+        u) shift 1 && helm upgrade $@;;
+        ui) shift 1 && helm uninstall $@;;
+        l) shift 1 && helm ls $@;;
+        *) helm $@
     esac
 }
 
