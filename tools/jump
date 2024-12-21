@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+# if [ "$1" == "home"]; then
+function jump() {
+
+    IGNORE_FILE="$XDG_CONFIG_HOME/jump/jumpignore"
+    FZF_ARGS="--reverse"
+
+    jumpfile=$(mktemp)
+
+    ls >> $jumpfile
+    echo "" >> $jumpfile
+
+    # cat $jumpfile
+
+    find . -maxdepth 5 2>/dev/null >> $jumpfile
+
+    while read line; do
+        line=$(echo $line | sed 's/\//\\\//')
+        sed -i "/$line/d" $jumpfile
+    done < $IGNORE_FILE
+
+
+    FILE=$(cat $jumpfile | grep -vP "^\.$" | sed "s/^\.\///" | fzf $FZF_ARGS)
+    test -z "$FILE" && exit 0
+
+    if ! file "$FILE" | grep -Pq "directory|symbolic link"; then
+        FILE=${FILE%$(basename $FILE)}
+    fi
+    cd "$FILE" 2>/dev/null
+}

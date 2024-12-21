@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+#!CMD: cd ~/cptest && paste
+
+MEMFILE=/tmp/copy-paste
+
+dest=$1
+test -z "$dest" && dest="./"
+
+while read line; do
+    mode=$(echo $line | cut -d" " -f 1)
+    path=$(echo $line | cut -d" " -f 2-)
+
+    if ! ls "$path" &>/dev/null; then
+        ls "$path" 2>&1 | cut -d " " -f 2-
+        continue
+    fi
+
+    rsync -ar --progress "$path" $dest | grep -v "sending incremental file list"
+
+    if [ "$mode" == "cut" ]; then
+        rm -rf "$path"
+        sed -i "s|cut $path|copy $path|" $MEMFILE
+    fi
+
+
+
+done < $MEMFILE

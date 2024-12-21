@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+#!CMD: cd ~/ && copy --cut "heyy" "hi ho"
+MODE="copy"
+
+# if [ "$1" == "--cut" ]; then
+#     shift
+#     MODE="cut"
+# fi
+
+MEMFILE=/tmp/copy-paste
+rm $MEMFILE 2>/dev/null
+
+for file in "$@"; do
+    if ! ls "$file" &>/dev/null; then
+        ls "$file" 2>&1 | cut -d " " -f 2-
+        continue
+    fi
+
+    echo "$MODE "$(readlink -f "$file") >> $MEMFILE
+done
