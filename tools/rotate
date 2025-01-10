@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+FILE="$1"
+DEG="$2"
+
+error() {
+    local message="$1"
+    printf "\e[0;31m$message\033[0m\n" >&2
+}
+
+if ! echo $DEG | grep -Pq "^-?\d+$"; then
+    error "The second argument must be an integer!"
+    exit 1
+fi
+
+file_ending="$(echo $FILE | sed 's/.*\.\(.*\)/\1/')"
+
+
+magick  "$FILE" -rotate $DEG "out.$file_ending"
+mv "out.$file_ending" "$FILE"
