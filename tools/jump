@@ -16,7 +16,8 @@ function jump() {
     find . -maxdepth 5 2>/dev/null >> $jumpfile
 
     while read line; do
-        line=$(echo $line | sed 's/\//\\\//')
+        line=$(echo $line | sed 's/\//\\\//g')
+        # echo line: $line
         sed -i "/$line/d" $jumpfile
     done < $IGNORE_FILE
 

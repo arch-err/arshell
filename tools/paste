@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#!CMD: cd ~/cptest && paste
+##!CMD: cd ~/cptest && paste
 
 MEMFILE=/tmp/copy-paste
 
@@ -13,6 +13,18 @@ while read line; do
     if ! ls "$path" &>/dev/null; then
         ls "$path" 2>&1 | cut -d " " -f 2-
         continue
+    fi
+
+    if ls | grep -Pq "^$dest$"; then
+
+        echo "Destination '$dest' already exist in cwd."
+        read -e -i "$dest-copy" -p "New Name: " dest  </dev/tty
+
+        if [ "$mode" == "cut" ]; then
+            mv "$path" $dest
+            sed -i "s|cut $path|copy $path|" $MEMFILE
+            continue
+        fi
     fi
 
     rsync -ar --progress "$path" $dest | grep -v "sending incremental file list"

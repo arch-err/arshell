@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #!CMD: cd ~/ && copy --cut "heyy" "hi ho"
-MODE="copy"
+MODE="cut"
 
 # if [ "$1" == "--cut" ]; then
 #     shift
