@@ -1,0 +1,89 @@
+ls = lsd
+l = lsd
+grep = grep --color=auto
+cat = bat
+c = bat
+diff = diff --color=auto
+ip = ip -color=auto
+ping = prettyping
+mkdir = mkdir -p
+cp = cp -v
+v = nvim
+sv = sudo nvim
+fzf = fzf --reverse
+
+# lf = lfub
+# steam = steam &>/dev/null
+# stigd = while true; do stig; done
+# rm = trash-put
+clip = clipboard
+bctl = stitle "Bluetoothctl" && bluetoothctl && stitle "Terminal"
+yazi = stitle "Yazi" && yazi && stitle "Terminal"
+btop = stitle "btop" && btop && stitle "Terminal"
+
+gs = git status
+gaa = git add --all
+gau = git add -u
+gco = git commit -m
+gpu = git push
+gpl = git pull
+gcl = git clone
+gd = git diff
+
+cf = config
+es = editscript
+ns = newscript
+np = newproject
+# cl = clip-lastcmd
+# nm = neomutt
+# hp = headphones
+# o = open
+pkg = $EDITOR $HOME/Projects/Git/Github/pkgz/pkgz.sh
+# z = zellij
+hosts = sudo nvim /etc/hosts
+ol = ollama
+
+# draw = firefox --kiosk --new-window "https://excalidraw.com/"
+# cb = sudo chown j03y:wheel /sys/class/backlight/intel_backlight/brightness
+# nd = nextcloud-deck
+tmp = nvim $(mktemp)
+ntfs = notify-send
+kitty = kitty --title "Terminal"
+pc = pwncat
+ts = teasync
+# wpscan = wordpresscan
+# file = magika
+# strings = flarestrings
+str = flarestrings
+etf = $EDITOR "$XDG_CONFIG_HOME/zsh/tmpfunc.sh" && source "$XDG_CONFIG_HOME/zsh/tmpfunc.sh"
+
+# WORK
+# manage.sh = manage.sh -i ~/.ssh/work_ed25519
+
+uninstall = yay -Rns
+unins = yay -Rns
+
+cfn = cd ~/.config/nvim/ && fzf | xargs $EDITOR
+uc3 = pushd "$HOME/Work/Git/Tools/c3po-tools/bin" && git pull; popd
+mnt = mounter
+ndoc = newdoc
+o9 = oclogin && k ns && kn
+sctl = sudo systemctl
+sctlu = systemctl --user
+smapu = smart.sh push -T podman
+drone-enable = drone repo sync | fzf --reverse --height 10 --prompt "Repo: " | xargs drone repo enable
+smart = smart.sh
+kcx = k cx
+clc = history | cut -d" " -f4- | tail -1 | wl-copy
+# k = kubectl
+vim = nvim
+pkgz = $EDITOR $HOME/Tech/nix/Nix-Pkgz/packages.yaml
+clusterlist = /usr/bin/cat /home/archerr/Work/Git/MCAP/Klusterlistan/clusterlist.yaml
+aocurl = curl -H "Cookie: session=53616c7465645f5fc0066cccb3c5bada6a8279fd099e589527e38cb9582b4afac5463ab86ef32f137cad9308bd85934a40af1e92f4605152b20ef1f680456836" -sLO
+dpl = foo() {podman pull "\$1" && podman save "\$1" | docker load}; foo
+rm = trash
+j = jump
+o = open
+link-bin = link --bin
+notes = $EDITOR $HOME/Notes/notes.md
+wnotes = $EDITOR $HOME/Work/work-todo.md
