@@ -1,0 +1,18 @@
+#!/bin/sh
+
+if echo "$1" | grep -i "nix" &>/dev/null
+then
+    "$HOME/.os/rebuild.sh"
+    exit 0
+fi
+
+cd ~/.config || exit 1
+CHOICE=$(fzf --reverse -q "$1")
+
+if test -z "$CHOICE"
+then
+    cd - >/dev/null
+    exit 0
+fi
+
+$EDITOR "$CHOICE"

@@ -1,0 +1,12 @@
+#!/bin/sh
+
+cd ~/.local/bin || exit 1
+CHOICE=$(fzf --reverse -q "$1")
+
+if test -z "$CHOICE"
+then
+    cd - >/dev/null
+    exit 0
+fi
+
+$EDITOR "$CHOICE"

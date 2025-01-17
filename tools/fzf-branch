@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+set -e
+git checkout $(git branch 2>/dev/null | fzf --height 10 --reverse --prompt "Checkout: ") 2>/dev/null

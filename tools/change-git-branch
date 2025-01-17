@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+if git branch | grep -Piq "\* (master|archive)"
+then
+	git checkout dev
+else
+	git checkout master
+fi

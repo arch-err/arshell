@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+git add -u && git commit -m "GitOps Debugging/Testing - $(date +%H:%M:%S)" && git push

@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+searchstring="$1"
+
+test -z "$searchstring" && searchstring=$(oc api-resources | awk '{print $3}' | sed "s|/.*||" | sort | uniq | fzf --height 10 --reverse --prompt "Resource: ")
+
+mkdir backup_${searchstring}
+for resource in $(oc api-resources | grep ${searchstring} | awk '{print $1}'); do printf "collecting ${resource}.. \n" && oc get ${resource} -A -o yaml > backup_${searchstring}/${resource}.yaml ; done

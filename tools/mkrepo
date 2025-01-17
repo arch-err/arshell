@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+REPONAME=$1
+shift 1
+public=""
+
+test -z "$REPONAME" && read -p "Repo Name: " REPONAME
+echo $@ | grep -P "(public|private)" || public="--public"
+
+gh repo create --add-readme --disable-issues --disable-wiki $@ ${public} ${REPONAME}
+$BROWSER "https://github.com/arch-err/${REPONAME}"
+git clone git@github.com:arch-err/${REPONAME}.git
