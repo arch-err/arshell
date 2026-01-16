@@ -1,0 +1,76 @@
+#!/usr/bin/env bash
+#!CMD: ./zesh
+
+case "$1" in
+	1)
+		tmux attach -t Main &>/dev/null || choice="Main"
+		exit 0
+		;;
+	2)
+		tmux attach -t Secondary &>/dev/null || choice="Secondary"
+		exit 0
+		;;
+	6)
+		tmux attach -t Music &>/dev/null || choice="Music"
+		exit 0
+		;;
+	8)
+		tmux attach -t Tools &>/dev/null || choice="Tools"
+		exit 0
+		;;
+esac
+
+
+options=("$(tmux list-sessions | cut -d":" -f1 | sed "s/^/*/g")")
+options+=("Clean Session")
+
+# Directories for sessions
+options+=("$(find $HOME/Git -maxdepth 3 -type d | sed "s|^$HOME/||")")
+options+=("$(find $HOME/Git/MyrCTFO/2024/ -maxdepth 1 -type d | sed "s|^$HOME/||")")
+options+=("$(find $HOME/Git/MyrCTFO/2025/ -maxdepth 1 -type d | sed "s|^$HOME/||")")
+options+=("*Main" "*Music" "*Secondary" "*WorkMain" "*Tools")
+
+test -z "$choice" && choice=$(printf "%s\n" "${options[@]}" | sort -u | sk --margin 1)
+
+if echo "$choice" | grep -Pq "^Git"; then
+	choice="$HOME/$choice"
+fi
+test -z "$choice" && exit 0
+
+if ls "$choice" &>/dev/null;then
+	DIR="$choice"
+	NAME=$(basename "$choice")
+	choice=$NAME
+	tmux new-session -d -s "$NAME" -c "$DIR" "yazi"
+fi
+
+
+case "$choice" in
+	"*Main")
+		tmux new-session -d -s Main -c '$HOME'
+		;;
+	"*Secondary")
+		tmux new-session -d -s Secondary -c '$HOME' "yazi"
+		;;
+	"*Music")
+		tmux new-session -d -s Music -c '$HOME/Media/Audio/Music'
+		;;
+	"*Tools")
+		tmux new-session -d -s Tools -c '$HOME' "btop"
+		;;
+	"*WorkMain")
+		tmux new-session -d -s WorkMain -c '$HOME' "yazi"
+		;;
+esac
+
+
+
+
+if [ "$choice" == "Clean Session" ]; then
+	NUM=$(tmux list-sessions | cut -d":" -f1 | grep -Po "^[0-9]+$" | sort -n | tail -1)
+	NAME=$((NUM+1))
+	choice=$NAME
+	tmux new-session -d -s "$NAME" -c "$HOME"
+fi
+
+tmux switch -t "${choice#\*}"
